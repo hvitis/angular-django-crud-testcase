@@ -8,11 +8,13 @@ class SystemUser(AbstractUser):
     """
     set email as unique username and allow empty passwords (oauth users)
     """
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+
+    # According to auth.py username=email
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ["email"]
 
     email = models.EmailField(_('email address'), unique=True)
-    username = models.CharField(_('username'), max_length=150, blank=True)
+    username = models.CharField(_('username'), max_length=150, blank=True, null=True, unique=True)
     password = models.CharField(_('password'), max_length=128, blank=True, null=True)
 
     class Meta:
