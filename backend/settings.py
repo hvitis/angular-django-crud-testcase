@@ -17,7 +17,7 @@ import django_heroku
 env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, 'thisIsMyFallbackSecretKey-pry5nl4+(89)f9(a$l^_^=&=wx2i7tg87m8d8*4bka!vv7-(!5'),
-    GOOGLE_CLIENT_ID=(str, ''),
+    GOOGLE_CLIENT_ID=(str, '256846098397-b4nb3bdkodne82v08q2u0da873e1gh3g.apps.googleusercontent.com'),
     DJANGO_LOG_LEVEL=(str, 'ERROR'),
     DEFAULT_LOG_LEVEL=(str, 'ERROR'),
 )
@@ -36,6 +36,7 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = [
     'testcase.rh-dev.eu',
+    'localhost:8001'
 ]
 
 
@@ -202,6 +203,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     'http://testcase.rh-dev.eu:8001',
+    'localhost:8001',
 )
 CORS_ALLOW_METHODS = (
     'GET',
