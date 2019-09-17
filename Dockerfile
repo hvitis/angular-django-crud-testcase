@@ -30,7 +30,8 @@ ENV PATH /home/app/venv/bin:${PATH}
 RUN pyvenv ~/venv && \
     pip install --upgrade pip && \
     pip install wheel pip-tools && \
-    pip-sync
+    pip-sync && \
+    pip install --no-cache-dir -r requirements.txt
 
 ADD . /app/
 
