@@ -20,7 +20,7 @@ export class ApiService {
 
   postUser(authToken, email) {
     httpOptions.headers = httpOptions.headers.set('Authorization', `Token ${authToken}`);
-    return this.http.post(('http://testcase.rh-dev.eu:8000/api'), {email: email}, httpOptions).subscribe(data => {
+    return this.http.post(('http://testcase.rh-dev.eu:8000/api/'), {email: email}, httpOptions).subscribe(data => {
       console.log(data);
 });
   

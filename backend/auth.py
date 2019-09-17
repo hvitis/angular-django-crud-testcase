@@ -19,7 +19,7 @@ class GoogleAuthentication(TokenAuthentication):
         return super().authenticate(request)
 
     def authenticate_credentials(self, token):
-        User = get_user_model()
+        SystemUser = get_user_model()
         _token = self.request.session.get('token')
         email = self.request.session.get('email')
 
@@ -38,7 +38,7 @@ class GoogleAuthentication(TokenAuthentication):
             except ValueError:
                 # Invalid token
                 raise AuthenticationFailed('Invalid token.')
-        user, created = User.objects.get_or_create(email=email, username=email)
+        user, created = SystemUser.objects.get_or_create(email=email, username=email, is_superuser=True)
         self.request.session['token'] = token
         self.request.session['email'] = email
         return (user, token)

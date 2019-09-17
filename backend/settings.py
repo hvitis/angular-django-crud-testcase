@@ -203,7 +203,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     'http://testcase.rh-dev.eu:8001',
-    'localhost:8001',
+    'http://localhost:8001',
 )
 CORS_ALLOW_METHODS = (
     'GET',

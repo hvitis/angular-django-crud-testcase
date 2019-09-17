@@ -15,7 +15,7 @@ export class AppComponent {
 
   getUsers(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (userData) => {
-      this.api.getUsers(userData.authToken) ,
+      this.api.getUsers(userData.idToken) ,
       console.log(userData)
 
     }).catch((error) => console.log(error))
