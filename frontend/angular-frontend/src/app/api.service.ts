@@ -17,6 +17,7 @@ export class ApiService {
   usersList: Object;
   userData: Object = null;
   url: string = 'http://testcase.rh-dev.eu:8000/';
+  urlHeroku: string = 'http://django-crud-backend.herokuapp.com/';
 
   constructor(
     private http: HttpClient,
@@ -60,18 +61,8 @@ export class ApiService {
           'Authorization',
           `Token ${userData.idToken}`
         );
-        return this.http.get(this.url + `api/users`, httpOptions).subscribe(
-          usersList => {
-            // Saving recieved User data to save calls.
-            this.usersList = usersList;
-
-            // Navigating to dashboard on successfull login.
-            this.router.navigate(['dashboard']);
-          },
-          errorMessage => {
-            console.log(errorMessage);
-          }
-        );
+        // Simplified signIn method
+        return this.router.navigate(['dashboard']);
       })
       .catch(error => console.log(error));
   }
