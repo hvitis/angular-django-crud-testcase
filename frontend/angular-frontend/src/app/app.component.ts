@@ -22,9 +22,17 @@ export class AppComponent {
   }
 
 
+  registerAdmin(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (userData) => {
+      this.api.registerAdmin(userData.idToken, userData.email, userData.id) ,
+      console.log(userData)
+
+    }).catch((error) => console.log(error))
+  }
+
   registerUser(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (userData) => {
-      this.api.postUser(userData.idToken, userData.email) ,
+      this.api.registerUser(userData.idToken, ) ,
       console.log(userData)
 
     }).catch((error) => console.log(error))
