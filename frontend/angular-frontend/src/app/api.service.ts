@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { environment } from '../environments/environment.prod';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,8 +17,7 @@ const httpOptions = {
 export class ApiService {
   usersList: Object;
   userData: Object = null;
-  url: string = 'http://testcase.rh-dev.eu:8000/';
-  urlHeroku: string = 'http://django-crud-backend.herokuapp.com/';
+  url: string = environment.urlHeroku;
 
   constructor(
     private http: HttpClient,

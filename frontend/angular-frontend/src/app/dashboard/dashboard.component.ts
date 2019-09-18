@@ -8,8 +8,14 @@ import { ApiService } from '../api.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private authService: AuthService, private api: ApiService) {}
+  constructor(private api: ApiService) {}
   users: any;
+
+  editUser(event) {
+    // Use post API service to send data.
+    console.log(event);
+  }
+
   ngOnInit() {
     // Getting users from API on entering component (e.g. reloading the page)
     this.getUsers();

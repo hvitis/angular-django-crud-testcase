@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SigninComponent } from './signin/signin.component';
+import { UserEditComponent } from './dashboard/user-edit/user-edit.component';
+import { FormsModule } from '@angular/forms';
 
 let config = new AuthServiceConfig([
   {
@@ -23,12 +25,18 @@ export function provideConfig() {
 }
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, SigninComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    SigninComponent,
+    UserEditComponent
+  ],
   imports: [
     BrowserModule,
     SocialLoginModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     {

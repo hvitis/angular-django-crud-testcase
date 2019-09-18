@@ -1,0 +1,14 @@
+<div *ngIf="!editMode" (click)="editMode = true" class="cell">
+  {{ user }}
+</div>
+<input
+  *ngIf="editMode"
+  (focusout)="onFocusOut()"
+  (keydown.enter)="$event.target.blur()"
+  [(ngModel)]="user"
+  class="form-control"
+  appAutofocus
+  type="text"
+  (keydown.enter)="$event.target.blur()"
+  (focusout)="editMode = false"
+/>

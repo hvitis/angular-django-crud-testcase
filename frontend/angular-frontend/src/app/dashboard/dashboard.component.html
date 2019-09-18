@@ -18,10 +18,30 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of users; let i = index">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ user.first_name }}</td>
-      <td>{{ user.last_name }}</td>
-      <td>{{ user.iban }}</td>
+      <th scope="row">
+        {{ i + 1 }}
+      </th>
+      <td>
+        <app-user-edit
+          [id]="user.id"
+          [user]="user.first_name"
+          (focusOut)="editUser($event)"
+        ></app-user-edit>
+      </td>
+      <td>
+        <app-user-edit
+          [id]="user.id"
+          [user]="user.last_name"
+          (focusOut)="editUser($event)"
+        ></app-user-edit>
+      </td>
+      <td>
+        <app-user-edit
+          [id]="user.id"
+          [user]="user.iban"
+          (focusOut)="editUser($event)"
+        ></app-user-edit>
+      </td>
       <td>
         <i class="fa fa-edit fa-lg m-2" style="color:#007BFF;"></i>
         <i class="fa fa-trash-alt fa-lg m-2" style="color:#DC3545;"></i>
