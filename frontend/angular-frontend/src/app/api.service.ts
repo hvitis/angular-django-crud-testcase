@@ -16,8 +16,8 @@ const httpOptions = {
 export class ApiService {
   usersList: Object;
   userData: Object = null;
-  //  url: string = 'http://testcase.rh-dev.eu:8000/';
-  url: string = 'https://django-crud-backend.herokuapp.com/';
+  url: string = 'http://testcase.rh-dev.eu:8000/';
+
   constructor(
     private http: HttpClient,
     private router: Router,
