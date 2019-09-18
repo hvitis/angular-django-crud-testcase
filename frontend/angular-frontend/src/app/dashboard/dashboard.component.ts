@@ -9,8 +9,11 @@ import { ApiService } from '../api.service';
 })
 export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService, private api: ApiService) {}
-
-  ngOnInit() {}
+  users: any;
+  ngOnInit() {
+    this.users = this.api.listUsers();
+    console.log(this.users);
+  }
 
   getUsers(): void {
     this.api.getUsers();

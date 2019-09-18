@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
+    "@fortawesome/fontawesome-free": "^5.10.2",
     "angular-font-awesome": "^3.1.2",
     "angular5-social-login": "^1.0.9",
     "angularx-social-login": "^1.2.7",

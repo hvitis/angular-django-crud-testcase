@@ -16,6 +16,9 @@ export class ApiService {
   url: string = 'http://testcase.rh-dev.eu:8000/';
   constructor(private http: HttpClient, private router: Router) {}
 
+  listUsers() {
+    return this.userList;
+  }
   getUsers() {
     return this.http
       .get(this.url + 'api/users', httpOptions)

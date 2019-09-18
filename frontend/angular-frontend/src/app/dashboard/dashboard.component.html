@@ -1,0 +1,52 @@
+<nav class="navbar navbar-dark bg-primary">
+  <h3 class="text-white">Admin Dashboard</h3>
+  <button class="btn btn-danger ml-4">Log out</button>
+</nav>
+<table class="table">
+  <thead class="bg-secondary text-white">
+    <tr>
+      <th scope="col">nr</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">IBAN</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index">
+      <th scope="row">1</th>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.iban }}</td>
+      <td>
+        <i class="fa fa-edit fa-lg m-2" style="color:#007BFF;"></i>
+        <i class="fa fa-trash-alt fa-lg m-2" style="color:#DC3545;"></i>
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">1</th>
+      <td>Jose</td>
+      <td>Luis</td>
+      <td>ES91 2100 0418 4502 0005 1332</td>
+      <td>
+        <i class="fa fa-edit fa-lg m-2" style="color:#007BFF;"></i>
+        <i class="fa fa-trash-alt fa-lg m-2" style="color:#DC3545;"></i>
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row"></th>
+      <td><input type="text" placeholder="First Name" /></td>
+      <td><input type="text" placeholder="Second Name" /></td>
+      <td><input type="text" placeholder="IBAN" /></td>
+      <td>
+        <button class="btn btn-success ml-4">
+          <i class="fa fa-plus fa-lg mr-1" style="color:rgb(255, 250, 251);">
+          </i>
+          Add User
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
