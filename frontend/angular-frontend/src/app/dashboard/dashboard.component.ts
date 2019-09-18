@@ -11,19 +11,22 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService, private api: ApiService) {}
   users: any;
   ngOnInit() {
-    this.users = this.api.listUsers();
-    console.log(this.users);
+    // Getting users from API on entering component (e.g. reloading the page)
+    this.getUsers();
   }
 
   getUsers(): void {
-    this.api.getUsers();
+    // Getting users from API
+    this.api.getUsers().subscribe(usersList => (this.users = usersList));
   }
 
   registerUser(): void {
+    // Registering user to API
     this.api.registerUser('john', 'doe', 'fakeIban');
   }
 
-  signOut(): void {
-    this.authService.signOut();
+  signOutAdmin(): void {
+    // Signing out, cleaning localstorage.
+    this.api.signOutAdmin();
   }
 }

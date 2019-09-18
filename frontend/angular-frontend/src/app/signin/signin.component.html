@@ -3,23 +3,24 @@
     <div class="card-header bg-primary text-white">
       Admin Dashboard
     </div>
-    <div class="card-body">
-      <div class="d-flex flex-row justify-content-end align-items-between">
+    <div class="d-flex flex-row justify-content-center align-items-center m-4">
+      <div class="text-left">
         <img
-          class="card-img-top p-3"
+          class="p-2"
           src="../../assets/creadit_card.svg"
           alt="Card image cap"
           height="200px"
+          style="border-right: 1px solid gray"
         />
-        <div>
-          <h5 class="card-title text-center">Loggin options:</h5>
-          <button
-            class="loginBtn loginBtn--google mt-5"
-            (click)="this.signInAdmin()"
-          >
-            Enter with Google
-          </button>
-        </div>
+      </div>
+      <div class="m-2">
+        <h5 class="card-title text-center">Loggin options:</h5>
+        <button
+          class="loginBtn loginBtn--google mt-5"
+          (click)="this.signInAdmin()"
+        >
+          Enter with Google
+        </button>
       </div>
     </div>
   </div>

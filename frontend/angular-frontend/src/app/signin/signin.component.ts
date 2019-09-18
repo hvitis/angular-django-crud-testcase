@@ -1,6 +1,5 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -9,16 +8,17 @@ import { ApiService } from '../api.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  constructor(private api: ApiService, private authService: AuthService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Navigating to dashboard in case user is logged in
+    if (this.api.userData) {
+      this.router.navigate(['dashboard']);
+    }
+  }
 
   signInAdmin(): void {
-    this.authService
-      .signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then(userData => {
-        this.api.signInAdmin(userData.idToken), console.log(userData);
-      })
-      .catch(error => console.log(error));
+    // Log in function calling API service
+    this.api.signInAdmin();
   }
 }

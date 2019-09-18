@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,33 +14,74 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService {
-  userList: Object;
-  url: string = 'http://testcase.rh-dev.eu:8000/';
-  constructor(private http: HttpClient, private router: Router) {}
+  usersList: Object;
+  userData: Object = null;
+  //  url: string = 'http://testcase.rh-dev.eu:8000/';
+  url: string = 'https://django-crud-backend.herokuapp.com/';
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
-  listUsers() {
-    return this.userList;
-  }
   getUsers() {
-    return this.http
-      .get(this.url + 'api/users', httpOptions)
-      .subscribe(apiData => (this.userList = apiData));
+    return this.http.get(this.url + 'api/users', httpOptions);
   }
 
-  signInAdmin(authToken) {
-    // Setting Token after obtaining from login.
+  userIsLogged() {
+    // Returning true or false for AuthGuard
+    return !!this.userData;
+  }
+
+  autoLogin() {
+    // Parsing string into a userAuth object from localstorage
+    const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+    if (!userAuth) {
+      return;
+    }
+    // Setting token to headers for API calls
     httpOptions.headers = httpOptions.headers.set(
       'Authorization',
-      `Token ${authToken}`
+      `Token ${userAuth.idToken}`
     );
-    return this.http
-      .get(this.url + `api/users`, httpOptions)
-      .subscribe(usersList => {
-        // Navigating to dashboard on successfull login.
-        this.router.navigate(['dashboard']),
-          // Saving recieved User data to save calls.
-          (this.userList = usersList);
-      });
+    return (this.userData = userAuth);
+  }
+
+  signInAdmin() {
+    this.authService
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(userData => {
+        // Setting Token after obtaining from login.
+        this.userData = userData;
+        // Saving user Authentication Data to local storage
+        localStorage.setItem('userAuth', JSON.stringify(userData));
+
+        httpOptions.headers = httpOptions.headers.set(
+          'Authorization',
+          `Token ${userData.idToken}`
+        );
+        return this.http.get(this.url + `api/users`, httpOptions).subscribe(
+          usersList => {
+            // Saving recieved User data to save calls.
+            this.usersList = usersList;
+
+            // Navigating to dashboard on successfull login.
+            this.router.navigate(['dashboard']);
+          },
+          errorMessage => {
+            console.log(errorMessage);
+          }
+        );
+      })
+      .catch(error => console.log(error));
+  }
+
+  signOutAdmin() {
+    // Cleaning all data and localstorage and navigating to login
+    this.userData = null;
+    this.usersList = null;
+    localStorage.clear();
+    return this.router.navigate(['/signin']);
   }
 
   registerUser(firstNameInput, lastNameInput, ibanInput) {

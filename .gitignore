@@ -12,3 +12,4 @@ staticfiles
 bootstrap-salt.sh
 .bash_history
 argument/
+.prettierrc
