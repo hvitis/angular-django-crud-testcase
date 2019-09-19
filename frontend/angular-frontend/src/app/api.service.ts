@@ -17,6 +17,11 @@ const httpOptions = {
 export class ApiService {
   usersList: Object;
   userData: Object = null;
+
+  /**
+   * Change if running on Docker backend
+   *
+   */
   url: string = environment.urlHeroku;
   messageService: any;
   constructor(
@@ -94,7 +99,7 @@ export class ApiService {
       iban: ibanInput,
       own: isOwn
     };
-    console.log(userObject);
+    // Returning Observable for subscription
     return this.http.put(
       this.url + `api/users/${userId}`,
       userObject,

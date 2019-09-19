@@ -5,15 +5,15 @@ ENV LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && apt-get -y install \
-      build-essential \
-      gcc \
-      python3-venv \
-      python3-dev \
-      libmemcached-dev \
-      libffi-dev \
-      libpq-dev  \
-      libssl-dev \
-      gettext \
+    build-essential \
+    gcc \
+    python3-venv \
+    python3-dev \
+    libmemcached-dev \
+    libffi-dev \
+    libpq-dev  \
+    libssl-dev \
+    gettext \
     && \
     apt-get clean && \
     mkdir /app && \
@@ -33,10 +33,12 @@ RUN pyvenv ~/venv && \
     pip-sync && \
     pip install --no-cache-dir -r requirements.txt
 
+
 ADD . /app/
 
 ENV DJANGO_SETTINGS_MODULE backend.settings
 
 EXPOSE 8000
+
 
 ENTRYPOINT [ "/app/manage.py" ]

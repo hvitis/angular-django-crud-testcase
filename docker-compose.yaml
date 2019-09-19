@@ -39,6 +39,21 @@ services:
       regiohelden:
         aliases:
           - testcase-db
+  # angular:
+  #   build:
+  #     context: .
+  #     dockerfile: ./frontend/angular-frontend/DockerfileAngular
+  #   ports:
+  #     - 8001:8001
+  #   command: 'npm start'
+  #   volumes:
+  #     - '.:/app'
+  #     - '/app/node_modules'
+  #   networks:
+  #     regiohelden:
+  #       aliases:
+  #         - testcase
+  #   restart: unless-stopped
 
 volumes:
   db_data: {}

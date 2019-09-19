@@ -12,6 +12,7 @@ import { UserEditComponent } from './dashboard/user-edit/user-edit.component';
 import { FormsModule } from '@angular/forms';
 import { AngularIbanModule } from 'angular-iban';
 
+// Using 3rd party npm package for frontEnd OAuth
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
