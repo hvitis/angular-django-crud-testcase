@@ -7,9 +7,12 @@ import { ApiService } from '../api.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  ibanEditError: boolean;
   constructor(private api: ApiService) {}
-  users: any;
-
+  users;
+  newUser = {};
+  isSubmitted = false;
+  formError;
   ngOnInit() {
     // Getting users from API on entering component (e.g. reloading the page)
     this.getUsers();
@@ -27,9 +30,18 @@ export class DashboardComponent implements OnInit {
           event.iban,
           event.own
         )
-        .subscribe(data => console.log(data), error => console.log(error));
+        .subscribe(
+          data => (
+            console.log('This field was edited!', data),
+            (this.ibanEditError = false)
+          ),
+          error => (
+            console.log('This field was not edited!', error),
+            (this.ibanEditError = true)
+          )
+        );
     } else {
-      console.log('You did not create this user.');
+      console.log('You do not have permission.');
     }
   }
 
@@ -46,11 +58,25 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  addUser(): void {
-    // Registering user to API
-    this.api
-      .addUser('Remote2', 'User3', 'AD1200012030200359100100')
-      .subscribe(response => this.getUsers());
+  // Adding new user
+  addUser(userNames, iban): void {
+    // Checking if forms are valid
+    if (userNames.form.status === 'VALID' && iban.control.status === 'VALID') {
+      // Changing error status in case was true.
+      this.formError = false;
+      // Using API service to register the user.
+      this.api
+        .addUser(
+          userNames.form.value.first_name,
+          userNames.form.value.last_name,
+          iban.model
+        )
+        // Getting users for listing after successful adding new user
+        .subscribe(response => this.getUsers());
+    } else {
+      // Raising alert in case forms are empty (both are required).
+      this.formError = true;
+    }
   }
 
   signOutAdmin(): void {

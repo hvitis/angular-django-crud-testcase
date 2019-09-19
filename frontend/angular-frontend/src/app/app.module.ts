@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SigninComponent } from './signin/signin.component';
 import { UserEditComponent } from './dashboard/user-edit/user-edit.component';
 import { FormsModule } from '@angular/forms';
+import { AngularIbanModule } from 'angular-iban';
 
 let config = new AuthServiceConfig([
   {
@@ -36,7 +37,8 @@ export function provideConfig() {
     SocialLoginModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularIbanModule
   ],
   providers: [
     {

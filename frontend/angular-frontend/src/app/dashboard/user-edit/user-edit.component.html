@@ -1,7 +1,6 @@
-<div *ngIf="!editMode || !user.own" (click)="editMode = true" (mouseover)="showIcon=true" (mouseleave)="showIcon=false"
-  style="position:absolute">
+<div *ngIf="!editMode || !user.own" (click)="editMode = true" (mouseover)="showIcon=true" (mouseleave)="showIcon=false">
   <!-- Showing Editing icons only for users that were created by logged admin -->
-  {{ userField }} <span *ngIf="showIcon && user.own"><i class="fa fa-edit" style="color:#007BFF;"></i></span>
+  {{ userField }} <span *ngIf="user.own && !showIcon"><i class="fa fa-edit" style="color:#007BFF;"></i></span><span *ngIf="showIcon && user.own"><i class="fa fa-edit" style="color:#007BFF;"></i></span>
 </div>
 <input *ngIf="editMode && user.own" (focusout)="onFocusOut()" (keydown.enter)="$event.target.blur()"
   [(ngModel)]="userField" class="form-control" appAutofocus type="text" (keydown.enter)="$event.target.blur()"

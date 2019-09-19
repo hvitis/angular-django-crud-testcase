@@ -36,22 +36,54 @@
         </app-user-edit>
       </td>
       <td>
-        <button class="btn" (click)="deleteUser(user.id)"> <i class="fa fa-trash-alt "
+        <button *ngIf="user.own" class="btn" (click)="deleteUser(user.id)"> <i class="fa fa-trash-alt "
             style="color:#DC3545;"></i></button>
-
-      </td>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td><input type="text" placeholder="First Name" /></td>
-      <td><input type="text" placeholder="Second Name" /></td>
-      <td><input type="text" placeholder="IBAN" /></td>
-      <td>
-        <button class="btn" (click)="addUser()">
-          <i class="fa fa-plus fa-lg" style="color:rgb(16, 192, 39);">
-          </i>
-        </button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<!-- New User form  -->
+<form #f="ngForm" (ngSubmit)="addUser(f, iban)" style="border-top: 1px solid rgb(223, 217, 217)" class="p-2">
+  <div class="form-row">
+    <h6 class="col-md-1 m-2 text-left">Add user</h6>
+    <div class="form-group col-md-2">
+      <input type="email" class="form-control" type="text" placeholder="First Name" [(ngModel)]="newUser.first_name"
+        name="first_name" required>
+    </div>
+    <div class="form-group col-md-2">
+      <input type="password" class="form-control" type="text" placeholder="Last Name" [(ngModel)]="newUser.last_name"
+        name="last_name" required>
+    </div>
+    <div class="form-group col-md-3">
+      <input id="iban" name="iban" class="form-control" #iban="ngModel" type="text" placeholder="IBAN" ibanValidator
+        [(ngModel)]="newUser.iban" [ngModelOptions]="{standalone: true}" required autocomplete="off">
+    </div>
+    <div class="form-group col-md-1 text-right"> <button class="btn" type="submit" (click)="isSubmitted = true">
+        <i class="fa fa-plus fa-lg" style="color:rgb(16, 192, 39);">
+        </i>
+      </button></div>
+  </div>
+  <div class="row">
+    <div class="col-5 offset-2">
+      <div *ngIf="iban.invalid && (iban.dirty || iban.touched) && isSubmitted " class="alert alert-danger">
+        <div *ngIf="iban.errors.required">
+          IBAN is required.
+        </div>
+        <div *ngIf="iban.errors.iban">
+          IBAN is invalid
+        </div>
+      </div>
+      <div *ngIf="iban.valid && (iban.dirty || iban.touched)" class="alert alert-success">
+        IBAN is valid.
+      </div>
+
+      <div *ngIf="this.formError" class="alert alert-danger"> All fields are required.</div>
+      <div *ngIf="this.ibanEditError" class="alert alert-danger">
+        Write correct IBAN to edit.
+      </div>
+    </div>
+  </div>
+
+
+</form>
