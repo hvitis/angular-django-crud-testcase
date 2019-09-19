@@ -6,17 +6,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-  @Input() user: string;
-  @Input() id: number;
-  @Output() focusOut: EventEmitter<any> = new EventEmitter<any>();
-
+  @Input() user: object;
+  @Input() userField: string;
+  @Input() fieldName: string;
+  @Output() changedUser: EventEmitter<any> = new EventEmitter<any>();
+  showIcon = false;
   editMode = false;
+
   constructor() {}
 
   ngOnInit() {}
 
   onFocusOut() {
-    this.focusOut.emit([this.user, this.id]);
-    console.log([this.user, this.id]);
+    // Modyfying edited field in a user object
+    this.user[this.fieldName] = this.userField;
+    // Emitting changed user object to component for sending
+    this.changedUser.emit(this.user);
   }
 }

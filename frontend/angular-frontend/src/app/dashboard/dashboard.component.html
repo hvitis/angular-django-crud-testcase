@@ -22,29 +22,23 @@
         {{ i + 1 }}
       </th>
       <td>
-        <app-user-edit
-          [id]="user.id"
-          [user]="user.first_name"
-          (focusOut)="editUser($event)"
-        ></app-user-edit>
+        <app-user-edit [user]="user" [userField]="user.first_name" [fieldName]="'first_name'"
+          (changedUser)="editUser($event)">
+        </app-user-edit>
       </td>
       <td>
-        <app-user-edit
-          [id]="user.id"
-          [user]="user.last_name"
-          (focusOut)="editUser($event)"
-        ></app-user-edit>
+        <app-user-edit [user]="user" [userField]="user.last_name" [fieldName]="'last_name'"
+          (changedUser)="editUser($event)">
+        </app-user-edit>
       </td>
       <td>
-        <app-user-edit
-          [id]="user.id"
-          [user]="user.iban"
-          (focusOut)="editUser($event)"
-        ></app-user-edit>
+        <app-user-edit [user]="user" [userField]="user.iban" [fieldName]="'iban'" (changedUser)="editUser($event)">
+        </app-user-edit>
       </td>
       <td>
-        <i class="fa fa-edit fa-lg m-2" style="color:#007BFF;"></i>
-        <i class="fa fa-trash-alt fa-lg m-2" style="color:#DC3545;"></i>
+        <button class="btn" (click)="deleteUser(user.id)"> <i class="fa fa-trash-alt "
+            style="color:#DC3545;"></i></button>
+
       </td>
     </tr>
     <tr>
@@ -53,10 +47,9 @@
       <td><input type="text" placeholder="Second Name" /></td>
       <td><input type="text" placeholder="IBAN" /></td>
       <td>
-        <button class="btn btn-success ml-4">
-          <i class="fa fa-plus fa-lg mr-1" style="color:rgb(255, 250, 251);">
+        <button class="btn" (click)="addUser()">
+          <i class="fa fa-plus fa-lg" style="color:rgb(16, 192, 39);">
           </i>
-          Add User
         </button>
       </td>
     </tr>

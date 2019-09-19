@@ -18,16 +18,12 @@ export class ApiService {
   usersList: Object;
   userData: Object = null;
   url: string = environment.urlHeroku;
-
+  messageService: any;
   constructor(
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
   ) {}
-
-  getUsers() {
-    return this.http.get(this.url + 'api/users', httpOptions);
-  }
 
   userIsLogged() {
     // Returning true or false for AuthGuard
@@ -75,18 +71,38 @@ export class ApiService {
     return this.router.navigate(['/signin']);
   }
 
-  registerUser(firstNameInput, lastNameInput, ibanInput) {
+  getUsers() {
+    // Getting list of all the users, returns observable.
+    return this.http.get(this.url + 'api/users', httpOptions);
+  }
+
+  addUser(firstNameInput, lastNameInput, ibanInput) {
     // Creating object for registering user with data from form.
     const userObject = {
-      firstName: firstNameInput,
-      lastName: lastNameInput,
+      first_name: firstNameInput,
+      last_name: lastNameInput,
       iban: ibanInput
     };
+    return this.http.post(this.url + `api/users`, userObject, httpOptions);
+  }
 
-    return this.http
-      .post(this.url + `api/users`, userObject, httpOptions)
-      .subscribe(data => {
-        console.log(data);
-      });
+  editUser(userId, firstNameInput, lastNameInput, ibanInput, isOwn) {
+    const userObject = {
+      id: userId,
+      first_name: firstNameInput,
+      last_name: lastNameInput,
+      iban: ibanInput,
+      own: isOwn
+    };
+    console.log(userObject);
+    return this.http.put(
+      this.url + `api/users/${userId}`,
+      userObject,
+      httpOptions
+    );
+  }
+
+  deleteUser(userId) {
+    return this.http.delete(this.url + `api/users/${userId}`, httpOptions);
   }
 }
